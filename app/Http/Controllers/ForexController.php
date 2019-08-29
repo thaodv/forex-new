@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Forex;
 use Illuminate\Http\Request;
+use Session;
 
 class ForexController extends Controller
 {
@@ -19,20 +20,46 @@ class ForexController extends Controller
             return "Email and Password is required";        
         }
         else{
-            return redirect('/dashboard');
-        }
+
+            $checkIfExists = Forex::where('email',$request->email)->where('password',$request->password)->first();
+            
+            if(empty($checkIfExists)){
+                return "Not a user";
+            }else{
+
+                $data = Forex::where('email',$request->email)->first();
+                $id = $data->id;
+
+                $update_data = array(
+                    'is_logged_in'=>true
+                );
+                Forex::whereId($id)->update($update_data);
+
+                Session::put('name',$data->first_name." ".$data->last_name);
+                Session::put('user_type',$data->user_type);
+                Session::put('id',$data->id);
+
+                return redirect('/dashboard/');
+            }
+
+         }
     }
 
     public function logout()
     {
-        return view('forex.login');
+        $id = Session::get('id');
+        $update_data = array(
+            'is_logged_in'=>false
+        );
+        Forex::whereId($id)->update($update_data);
+        Session::flush();
+        return redirect('/');
     }
 
     public function dashboard()
     {
-        return view('forex.dashboard'); 
+        return view('forex.dashboard');
     }
-
     public function create()
     {
         return view('forex.form_create');

@@ -23,6 +23,7 @@ Route::get('/userList','ForexController@userList');
 
 Route::get('/lead/list',"LeadController@list")->name('lead.list');
 Route::get('/lead/new',"LeadController@create")->name('lead.new');
+Route::get('/lead/appointment',"LeadController@appointment")->name('lead.appointment');
 Route::post('/lead/store',"LeadController@store")->name('lead.store');
 
 Route::get('/client/list',"ClientController@list")->name('client.list');

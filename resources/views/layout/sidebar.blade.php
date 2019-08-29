@@ -28,6 +28,7 @@
 </div>
 
 <!-- Nav Item - Users Collapse Menu -->
+@if(Session::get('user_type')=="Developer")
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
     <i class="fas fa-fw fa-cog"></i>
@@ -41,6 +42,7 @@
     </div>
   </div>
 </li>
+@endif
 
 <!-- Nav Item - Leads Collapse Menu -->
 <li class="nav-item">
@@ -53,6 +55,7 @@
       <h6 class="collapse-header">Forex Leads:</h6>
       <a class="collapse-item" href="{{route('lead.list')}}">List of Leads</a>
       <a class="collapse-item" href="{{route('lead.new')}}">Add New Lead</a>
+      <a class="collapse-item" href="{{route('lead.appointment')}}">Leads for Appointment</a>
     </div>
   </div>
 </li>

@@ -24,9 +24,9 @@
                 <!-- Content Row -->
                 <div class="row">
                     <div class="col-md-8 offset-2">
-                        <!-- <form-create-lead></form-create-lead> -->
+                        <form-create-lead></form-create-lead>
 
-                        <form  action="{{route('lead.store')}}" method="post">
+                        <!-- <form  action="{{route('lead.store')}}" method="post">
                         @csrf
                         <div class="form-group">
                             <input type="text" name='company_name' class="form-control form-control-user" id="leadCompanyName" aria-describedby="companyNameHelp" placeholder="Company Name">
@@ -55,7 +55,7 @@
                         <button class="btn btn-primary btn-user btn-block" >
                             Submit
                         </button>
-                        </form>
+                        </form> -->
                     </div>
                 </div><!-- end of content row -->
 

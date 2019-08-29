@@ -27,8 +27,6 @@
         <input type="hidden" name='password' value="12345" class="form-control form-control-user"  v-model="user.password" aria-describedby="passwordHelp" placeholder="Password">
         <input type="hidden" name='is_logged_in' value="false" class="form-control form-control-user"  v-model="user.is_logged_in" aria-describedby="isLoggedInHelp" placeholder="Is Logged In">
 
-          
-        
         <button class="btn btn-primary btn-user btn-block" @click.prevent="create()">
             Submit
         </button>

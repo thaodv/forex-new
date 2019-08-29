@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('form-create-forex-user',require('./components/CreateForexUserComponent.vue').default);
+Vue.component('form-create-lead',require('./components/CreateLeadComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
