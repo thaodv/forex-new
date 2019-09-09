@@ -16,14 +16,9 @@
             <!-- Begin Page Content -->
             <div class="container-fluid" id="app">
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Forex Prospect Leads</h1>
-                    <a href="{{route('lead.new')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Add New Lead</a>
-                </div>
-
+               
                 <!-- DataTales Example -->
-                <div class="card shadow mb-4" id="lead_div" style="display:none;">
+                <div class="card shadow mb-4" id="lead_div" >
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Prospect Leads</h6>
                   </div>
@@ -40,16 +35,7 @@
                             <th>Action</th>
                           </tr>
                         </thead>
-                        <tfoot>
-                          <tr>
-                              <th>Company Name</th>
-                            <th>Phone Number</th>
-                            <th>Telephone Number</th>
-                            <th>Contact Person</th>
-                            <th>URL Website</th>
-                            <th>Action</th>
-                          </tr>
-                        </tfoot>
+                         
                         <tbody>
                           @foreach($leads as $lead)
                           <tr>
@@ -58,7 +44,16 @@
                             <td>{{$lead->telephone_number}}</td>
                             <td>{{$lead->contact_person}}</td>
                             <td>{{$lead->website}}</td>
-                            <td><button class="btn btn-primary btn-user btn-block" onclick="showCallDiv('{{$lead}}')">Call</button></td>
+                            <td>@if(empty($lead->call_status))
+                                <button class="btn btn-primary btn-user btn-block" onclick="showCallDiv('{{$lead}}')">Call</button>
+                                @elseif($lead->call_status=="Unanswered")
+                                <button class="btn btn-warning btn-user btn-block" onclick="showCallDiv('{{$lead}}')">Call Again</button>
+                                @elseif($lead->call_status=="Appointment")
+                                <button class="btn btn-success btn-user btn-block" onclick="showAppointment('{{$lead}}')">For Appointment</button>
+                                @else
+                                <p class="btn btn-danger btn-user btn-block">{{$lead->call_status}}</p>
+                                @endif
+                            </td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -67,53 +62,60 @@
                   </div>
                 </div><!--datatables-->
 
-                <form  action="{{route('lead.store')}}" method="post">
                 <!-- Calling Div -->
-                <div class="card shadow mb-4" id="call_div" >
+                <div class="card shadow mb-4" id="call_div" style="display:none;">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Making a call</h6>
                   </div>
                   
                   <div class="row" >
-                    <div class="col-lg-5 offset-1">
+                    <div class="col-lg-4 offset-1">
                           <br/>                        
-                          @csrf
+                          
                           <div class="form-group">
                               <input type="text" readonly name='company_name' class="form-control form-control-user" id="leadCompanyName" aria-describedby="companyNameHelp" placeholder="Company Name">
                           </div>
-
+                    </div>
+                    <div class="col-lg-4 offset-1">
+                          <br/> 
                           <div class="form-group">
                               <input type="text" readonly name='phone_number' class="form-control form-control-user" id="leadPhoneNumber" aria-describedby="phoneNUmberHelp" placeholder="Cellular Number">
                           </div>
-
+                          </div>
+                    <div class="col-lg-4 offset-1">
+                          <br/> 
                           <div class="form-group">
                               <input type="text" readonly name='telephone_number' class="form-control form-control-user" id="leadTelephoneNumber" aria-describedby="telephoneNumberHelp" placeholder="Telephone Number">
                           </div>
-                          <div class="form-group">
-                              <input type="text"  name='telephone_number' class="form-control form-control-user" id="leadTelephoneNumber" aria-describedby="telephoneNumberHelp" placeholder="Telephone Number">
-                          </div>
-                            
-                          <input type="hidden" name='status' value="Called" class="form-control form-control-user" id="leadStatus" aria-describedby="statusHelp" placeholder="Status">
-                        
-                     </div>
-                    <div class="col-lg-5">
-                        <br/>
-                        <textarea name="call_summary" class="form-control" rows=7 cols=10 placeholder="Type here the summary of the call"></textarea>
                     </div>
+
+                    <div class="col-lg-4 offset-1">
+                          <br/> 
+                          <div class="form-group">
+                              <input type="text" readonly name='contact_person' class="form-control form-control-user" id="leadContactPerson" aria-describedby="contactPersonHelp" placeholder="Contact Person">
+                          </div>
+                    </div>             
+                          
+                        
+                     
+                   
                   </div><!--row-->
                 </div>
 
 
-                <div class="card shadow mb-4" id="calloutcome_div" >
+                <div class="card shadow mb-4" id="calloutcome_div" style="display:none;">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Outcome of the Call</h6>
                   </div>
 
                   <div class="row" >
                     <div class="col-lg-5 offset-1">
-
+                        <form action="{{route('lead.callsummary')}}" method="post">
+                        @csrf
+                        <input type="hidden" name='status' value="Called" class="form-control form-control-user" id="leadStatus" aria-describedby="statusHelp" placeholder="Status">
+                        <input type="hidden" name='id'  class="form-control form-control-user" id="leadId" aria-describedby="idHelp" placeholder="ID">
                         <br/>
-                         <select name="status" id="call_status" class='form-control'>
+                         <select name="call_status" id="call_status" class='form-control'>
                          <option value="">Select New Status of the Lead</option>
                           <option value="Appointment">For Appointment</option>
                           <option value="Uninterested">Not Interested</option>
@@ -127,7 +129,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name='contact_meeting' class="form-control form-control-user" id="leadContactMeeting" aria-describedby="contactMeetingHelp" placeholder="Name of the person to meet">
+                                <input type="text" name='appointment_person' class="form-control form-control-user" id="leadContactMeeting" aria-describedby="contactMeetingHelp" placeholder="Name of the person to meet">
                             </div>
 
                             <div class="form-group">
@@ -135,12 +137,16 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name='appointment_remarks' class="form-control form-control-user" id="leadRemark" aria-describedby="remarksHelp" placeholder="Remarks">
+                                <input type="text" name='appointment_remarks' class="form-control form-control-user" id="leadRemarks" aria-describedby="remarksHelp" placeholder="Remarks">
                             </div>
-
                         </div>
-                        <button class="btn btn-primary btn-user btn-block" >
+                        <button id="btnSubmit" style="display:none;" class="btn btn-primary btn-user btn-block" >
                                 Submit
+                        </button>
+                        </form>
+                        <hr/>
+                        <button onclick="showLeadList()" class="btn btn-danger btn-user btn-block" >
+                                Cancel
                         </button>
                         <br/>
                     </div>
@@ -156,6 +162,7 @@
                           <li>Signature Pad (for instance on-boarding)</li>
                         </ul>
                     </div>
+                    
                   </div><!--row-->
                 </div>
 
@@ -198,30 +205,49 @@
   <script>
 
   function showCallDiv(lead){
-    console.log(lead);
     var lead = JSON.parse(lead);
     document.getElementById('leadCompanyName').value = lead.company_name;
     document.getElementById('leadTelephoneNumber').value = lead.telephone_number;
     document.getElementById('leadPhoneNumber').value = lead.phone_number;
+    document.getElementById('leadContactPerson').value = lead.contact_person;
+    document.getElementById('leadId').value = lead.id;
+
     $('#call_div').show();
     $('#lead_div').hide();
+    $('#calloutcome_div').show();
+  }
+
+  function showLeadList(){
+    $('#call_div').hide();
+    $('#lead_div').show();
+    $('#calloutcome_div').hide();
+  
   }
 
   $('#call_status').change(function(){
     var outcome = $('#call_status').val();
-
+ 
     switch(outcome){
       case "Appointment":
+          $('#btnSubmit').show();
           $('#appointment_div').show();
           $('#reminder_div').show();
       break;
-
+      case "":
+      $('#btnSubmit').hide();
+      break;
       default:
+          $('#btnSubmit').show();
           $('#appointment_div').hide();
           $('#reminder_div').hide();
       break;  
       
     }
   });
+
+  function showAppointment(lead){
+    var lead = JSON.parse(lead);
+    alert(lead.appointment_date);
+  }
 
   </script>

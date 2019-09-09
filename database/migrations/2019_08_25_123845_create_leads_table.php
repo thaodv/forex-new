@@ -17,12 +17,18 @@ class CreateLeadsTable extends Migration
             $table->bigIncrements('id');
             $table->string('forex_id');
             $table->string('company_name');
-            $table->string('phone_number');
-            $table->string('telephone_number');
-            $table->string('website');
-            $table->string('email');
-            $table->string('contact_person');
+            $table->string('phone_number')->nullable(true);
+            $table->string('telephone_number')->nullable(true);
+            $table->string('website')->nullable(true);
+            $table->string('email')->nullable(true);
+            $table->string('contact_person')->nullable(true);
             $table->string('status');
+            $table->string('call_status')->nullable(true);
+            $table->boolean('for_appointment')->default(false);
+            $table->string('appointment_date')->nullable(true);
+            $table->string('appointment_person')->nullable(true);
+            $table->string('appointment_address')->nullable(true);
+            $table->string('appointment_remarks')->nullable(true);
             $table->timestamps();
         });
     }
