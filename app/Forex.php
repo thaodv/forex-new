@@ -16,4 +16,8 @@ class Forex extends Model
         'password',
         'is_logged_in'
     ];
+
+    public function client(){
+        $this->hasMany('App\Client');
+    }
 }

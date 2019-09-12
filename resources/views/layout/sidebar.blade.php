@@ -49,6 +49,22 @@
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLeads" aria-expanded="true" aria-controls="collapseLeads">
     <i class="fas fa-fw fa-wrench"></i>
+    <span>Prospect Leads</span>
+  </a>
+  <div id="collapseLeads" class="collapse" aria-labelledby="headingLeads" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <h6 class="collapse-header">Forex Leads:</h6>
+      <a class="collapse-item" href="{{route('prospect.list')}}">List</a>
+      <a class="collapse-item" href="{{route('prospect.new')}}">Add New Lead</a>
+      <a class="collapse-item" href="{{route('prospect.onboard')}}">On-board Prospect Lead</a>      
+      <a class="collapse-item" href="{{route('lead.approval')}}">For Approval</a>
+    </div>
+  </div>
+</li>
+
+{{-- <li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLeads" aria-expanded="true" aria-controls="collapseLeads">
+    <i class="fas fa-fw fa-wrench"></i>
     <span>Leads</span>
   </a>
   <div id="collapseLeads" class="collapse" aria-labelledby="headingLeads" data-parent="#accordionSidebar">
@@ -61,7 +77,7 @@
       <a class="collapse-item" href="{{route('lead.approval')}}">For Approval</a>
     </div>
   </div>
-</li>
+</li> --}}
 
 
 <!-- Nav Item - Clients Collapse Menu -->
@@ -74,24 +90,12 @@
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Forex Clients:</h6>
       <a class="collapse-item" href="{{route('client.list')}}">List</a>
-      <a class="collapse-item" href="{{route('client.statistics')}}">Clients' Statistics</a>
+      <a class="collapse-item" href="{{route('client.atp')}}">ATP Form</a>
     </div>
   </div>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseClients">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>Order Booking</span>
-    </a>
-    <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Clients' Order:</h6>
-        <a class="collapse-item" href="{{route('order.list')}}">List</a>
-        <a class="collapse-item" href="{{route('order.create')}}">Book Order</a>
-      </div>
-    </div>
-  </li>
+ 
 @endif
 
 @if(Session::get('user_type')=="Com")
@@ -108,7 +112,95 @@
     </div>
   </div>
 </li>
+
+<!-- Nav Item - ATP Collapse Menu -->
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseATP" aria-expanded="true" aria-controls="collapseATP">
+    <i class="fas fa-fw fa-wrench"></i>
+    <span>Application To Purchase</span>
+  </a>
+  <div id="collapseATP" class="collapse" aria-labelledby="headingATP" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <h6 class="collapse-header">ATP Forms:</h6>
+      <a class="collapse-item" href="{{route('order.atp')}}">ATP of Today's Booking</a>
+    </div>
+  </div>
+</li>
 @endif
+
+@if(Session::get('user_type')=="DeptHead")
+<!-- Nav Item - Clients Collapse Menu -->
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients" aria-expanded="true" aria-controls="collapseClients">
+    <i class="fas fa-fw fa-wrench"></i>
+    <span>Trader Assignment</span>
+  </a>
+  <div id="collapseClients" class="collapse" aria-labelledby="headingClients" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <h6 class="collapse-header">Forex Client:</h6>
+      <a class="collapse-item" href="{{route('forex.assign-trader')}}">Trader Assignment</a>
+    </div>
+  </div>
+</li>
+@endif
+
+@if(Session::get('user_type')=="Trader")
+<!-- Nav Item - Clients Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBlotter" aria-expanded="true" aria-controls="collapseBlotter">
+      <i class="fas fa-fw fa-wrench"></i>
+      <span>Blotter</span>
+    </a>
+    <div id="collapseBlotter" class="collapse" aria-labelledby="headingBlotter" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Forex Blotter:</h6>
+        <a class="collapse-item" href="{{route('forex.liquidity')}}">Set Liquidity</a> 
+      </div>
+    </div>
+  </li>
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients" aria-expanded="true" aria-controls="collapseClients">
+    <i class="fas fa-fw fa-wrench"></i>
+    <span>Clients</span>
+  </a>
+  <div id="collapseClients" class="collapse" aria-labelledby="headingClients" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <h6 class="collapse-header">Forex Clients:</h6>
+      <a class="collapse-item" href="{{route('trader.list')}}">List</a> 
+    </div>
+  </div>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseClients">
+      <i class="fas fa-fw fa-wrench"></i>
+      <span>Order Booking</span>
+    </a>
+    <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Clients' Order:</h6>
+        <a class="collapse-item" href="{{route('trader.orders')}}">List</a>
+        <a class="collapse-item" href="{{route('trader.create')}}">Book Order</a>
+      </div>
+    </div>
+  </li>
+@endif
+
+
+
+<!-- Nav Item - Logs Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLogs" aria-expanded="true" aria-controls="collapseLeads">
+      <i class="fas fa-fw fa-wrench"></i>
+      <span>Logs</span>
+    </a>
+    <div id="collapseLogs" class="collapse" aria-labelledby="headingLogs" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Forex Logs:</h6>
+        <a class="collapse-item" href="{{route('forex.logs')}}">View Activity Log</a>
+      </div>
+    </div>
+  </li>
 
 
 <!-- Divider -->

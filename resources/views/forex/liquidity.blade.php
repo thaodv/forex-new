@@ -18,40 +18,26 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Create Forex User</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Set Liquidity</h1>
                 </div>
 
                 <!-- Content Row -->
                 <div class="row">
                     <div class="col-md-8 offset-2">
                        <!-- <form-create-forex-user></form-create-forex-user>-->
-                         <form action="{{route('forex.store')}}" method="post">
+                         <form action="{{route('forex.saveliquidity')}}" method="post">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name='employee_id' class="form-control form-control-user" id="userEmployeeId" aria-describedby="employeeIdHelp" placeholder="Employee ID">
+                            <input type="text" name='beginning_balance' class="form-control form-control-user" id="beginning_balance" aria-describedby="employeeIdHelp" placeholder="Beginning Balance">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name='first_name' class="form-control form-control-user" id="userFirstName" aria-describedby="firstNameHelp" placeholder="First Name">
+                            <input type="text" name='weighted_average' class="form-control form-control-user" id="weighted_average" aria-describedby="firstNameHelp" placeholder="Weighted Average">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name='last_name' class="form-control form-control-user" id="userLastName" aria-describedby="lastNameHelp" placeholder="Last Name">
+                            <input type="text" name='average_margin' class="form-control form-control-user" id="average_margin" aria-describedby="lastNameHelp" placeholder="Average Margin">
                         </div>
-
-                        <div class="form-group">
-                            <input type="text" name='department' class="form-control form-control-user" id="userDepartment" aria-describedby="departmentHelp" placeholder="Department">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" name='user_type' class="form-control form-control-user" id="userType" aria-describedby="userTypelHelp" placeholder="User Type">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="email" name='email' class="form-control form-control-user" id="userEmail" aria-describedby="emailHelp" placeholder="Email Address">
-                        </div> 
-                                <input type="hidden" name='password' value="12345" class="form-control form-control-user" id="userPassword" aria-describedby="passwordHelp" placeholder="Password">
-                                <input type="hidden" name='is_logged_in' value="false" class="form-control form-control-user" id="useris_logged_in" aria-describedby="isLoggedInHelp" placeholder="Is Logged In">
                         <button class="btn btn-primary btn-user btn-block" >
                             Submit
                         </button>

@@ -20,35 +20,27 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4" id="lead_div" >
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Orders</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Clients</h6>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th>Client</th>
-                            <th>Bought Currency</th> 
-                            <th>Amount</th> 
-                            <th>Bought Currency</th> 
-                            <th>Amount</th>
-                            <th>Rate</th>                             
-                            <th>Status</th>
-                            <th>Date Added</th>
-                             
+                            <th>Name</th>
+                            <th>Trader</th>
                           </tr>
                         </thead> 
                         <tbody>
-                          @foreach($orders as $orderDetails)
+                          @foreach($list as $listDetails)
                           <tr>
-                            <td>{{$orderDetails->client_id}}</td>
-                            <td>{{$orderDetails->bought_currency}}</td>
-                            <td>{{$orderDetails->bought_amount}}</td>
-                            <td>{{$orderDetails->sold_currency}}</td>
-                            <td>{{$orderDetails->sold_amount}}</td>
-                            <td>{{$orderDetails->rate}}</td>
-                            <td>{{$orderDetails->status}}</td>
-                            <td>{{$orderDetails->created_at}}</td>
+                            <td>{{$listDetails->first_name}} {{$listDetails->last_name}}</td>
+                            <td><select name="trader" class="form-control" onchange="saveTrader({{$listDetails->id}}, this.value)">
+                                <option value="">Select Trader</option>
+                                @foreach($trader as $traderDetail)
+                                <option value="{{$traderDetail->id}}">{{$traderDetail->first_name}} {{$traderDetail->last_name}}</option>
+                                @endforeach
+                            </select></td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -99,6 +91,25 @@
   <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 
   <script>
-   
+
+  function saveTrader(client_id,trader_id){
+       var url = "http://forex.test/save-trader";
+
+                var data = {
+                        client_id: client_id,
+                        trader_id: trader_id,                        
+                        _token: '{{csrf_token()}}'
+                };    
+                 
+                     $.ajax({ //Process the form using $.ajax()
+                        type      : 'POST', //Method type
+                        url       : url,  
+                        data      : data, 
+                        dataType  : 'json',
+                        success: function(msg) {   
+                             alert(msg.msg);                                  
+                        }
+                    }); 
+  }
 
   </script>

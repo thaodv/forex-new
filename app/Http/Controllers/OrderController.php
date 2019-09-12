@@ -1,43 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Order;
-use App\Client;
 use Illuminate\Http\Request;
-use Session;
-class BookOrderController extends Controller
+use Session;    
+use App\Forex;
+use App\Client;
+use App\Liquidity;
+class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function list()
-    {
-        $data = array(
-            'oders'=>Order::all()
-        );
-        return view('orders.list',$data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    { 
-        $data['list'] = Client::whereStatus("Approved")
-        ->whereForexId(Session::get('id'))
-        ->get(['id','first_name','last_name']);
-
-        
-
-        return view('orders.create',$data);
-    }
-
-    
+    //
     /**
      * Store a newly created resource in storage.
      *
@@ -46,7 +18,16 @@ class BookOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $log = array(
+            'forex_id'=>Session::get('id'),
+            'activity'=>"Booking Order",
+            'description'=>"Client Name: ".$request->client_id.' | FAO ID: '.$request->forex_id
+        );
+
+        ForexLog::create($log);
+
+        Order::create($request->all());
+        return redirect('/trader/orders');
     }
 
     /**
@@ -92,5 +73,26 @@ class BookOrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function traderOrderList(){
+        $trader_id = Session::get('id');
+        
+        
+        $data['orders']=Order::whereTraderId($trader_id)->get();
+        return view('orders.list',$data);
+        
+    }
+
+    public function traderOrderCreate(){
+        $data = array(
+            'list'=>Client::whereStatus("Approved")
+                ->whereTraderId(Session::get('id'))
+                ->get()
+                
+        ); 
+        $last_balance_id = Liquidity::whereId(Session::get('liquidity_id'))->get('beginning_balance'); 
+        echo $last_balance_id;
+        //return view('orders.create',$data);
     }
 }

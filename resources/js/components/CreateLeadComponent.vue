@@ -2,7 +2,7 @@
     <div>
         <p id="message"></p>
         <div class="form-group">
-            <input type="text" name='company_name' class="form-control form-control-user" id="leadCompanyName" v-model="lead.company_name" aria-describedby="companyNameHelp" placeholder="Company Name">
+            <input type="text" name='company_name' class="form-control form-control-user" id="leadCompanyName" v-model="lead.company_name" aria-describedby="companyNameHelp" placeholder="Client Name">
         </div>
 
         <div class="form-group">

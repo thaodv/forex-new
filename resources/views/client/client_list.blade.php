@@ -29,8 +29,8 @@
                           <tr>
                             <th>Name</th>
                             <th>Contact Number</th> 
-                            <th>Status</th>
-                            <th>Details</th>
+                            <th>Trader</th>
+                            <th>Date Added</th>
                           </tr>
                         </thead> 
                         <tbody>
@@ -38,8 +38,12 @@
                           <tr>
                             <td>{{$listDetails->first_name}} {{$listDetails->last_name}}</td>
                             <td>{{$listDetails->contact_number}}</td>
-                            <td>{{$listDetails->status}}</td>
-                            <td>{{$listDetails->compliance_reason}}</td>
+                            <td>@foreach($trader as $tr)
+                              @if($tr->id==$listDetails->trader_id)
+                                {{$tr->first_name." ".$tr->last_name}}
+                              @endif
+                              @endforeach</td>
+                            <td>{{$listDetails->created_at}}</td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -91,6 +95,27 @@
 
   <script>
 
-  
+  function getTraderName(client_id,trader_id){
+
+      var url = "http://forex.test/tradername";
+
+                var data = {
+                        trader_id: trader_id,
+                        _token: '{{csrf_token()}}'
+                };    
+                 
+                 console.log(data);
+                    $.ajax({ //Process the form using $.ajax()
+                        type      : 'POST', //Method type
+                        url       : url,  
+                        data      : data, 
+                        dataType  : 'json',
+                        success: function(msg) {   
+                            console.log(msg.name);
+                            return msg.name;
+                          //  showActionBtns();                                     
+                        }
+                    }); 
+  }
 
   </script>

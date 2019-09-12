@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lead;
 use App\Signature;
 use App\Client;
+use App\ForexLog;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +27,13 @@ class LeadController extends Controller
     }
 
     public function store(Request $request){
+
+        $log = array(
+            'forex_id'=>Session::get('id'),
+            'activity'=>"Add new lead",
+            'description'=>"Lead Name: ".$request->company_name
+        );
+        ForexLog::create($log);
 
         $lead = new Lead();
         $lead->forex_id = Session::get('id');
@@ -50,7 +58,19 @@ class LeadController extends Controller
     }
 
     public function callSummary(Request $request){
-       
+        $company_name = "";
+        $query = Lead::where('id',$request->id)->get('company_name');
+        foreach($query as $q){
+            $company_name = $q->company_name;
+        }
+        $log = array(
+            'forex_id'=>Session::get('id'),
+            'activity'=>"Initiate Call",
+            'description'=>"Lead Name: ".$company_name. " | Outcome: ".$request->call_status
+        );
+
+        ForexLog::create($log);
+
         $call = Lead::find($request->id);
         $call->status = $request->status;
         $call->call_status = $request->call_status;
@@ -140,9 +160,15 @@ class LeadController extends Controller
 
     public function forApproval(){
         $data = array(
-            'list'=>Client::where("status","!=","Approved")->where("status","!=","New")->get()
+            'list'=>Client::where("status","!=","Approved")->get()
         ); 
         return view('leads.onboard_list',$data);
+    }
+
+    public function signatureWindow($signee){
+
+        Session::put('signee','trader'.$signee);
+        return view('leads.signature_window');
     }
 
 }

@@ -30,7 +30,7 @@
             <div class="container-fluid" id="app">
               <div class="card shadow mb-4" id="lead_div" >
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">On Board Lead</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">On Board Prospect Lead</h6>
                 </div>
                 <div  id="cisForm">
                   <form action="{{route('client.store')}}" method="post">

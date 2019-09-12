@@ -60,6 +60,7 @@ class CreateClientsTable extends Migration
             $table->string('company_name')->nullable(true);
             $table->string('website')->nullable(true);
             $table->string('contact_person')->nullable(true);
+            $table->string('compliance_time')->nullable(true);
             
             $table->timestamps();
         });

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Forex;
+use App\Client;
+use App\Lead;
+use App\ForexLog;
+use App\Liquidity;
 use Illuminate\Http\Request;
 use Session;
 
@@ -67,6 +71,7 @@ class ForexController extends Controller
 
     public function store(Request $request)
     {
+       
         Forex::create($request->all());
         
         return "Successfully added";
@@ -102,4 +107,66 @@ class ForexController extends Controller
     {
         //
     }
+
+    public function activityLogs(){
+        $id = Session::get('id');
+        $data['log'] = ForexLog::whereForexId($id)->get();
+        return view('forex.log',$data);
+    }
+
+    public function assignTrader(){
+        $data = array(
+            'list'=>Client::whereStatus("Approved")->get(),
+            'trader'=>Forex::where('user_type','=','Trader')->get()
+            
+        ); 
+        return view('forex.assign_trader',$data);
+    }
+
+    public function saveTrader(Request $request){
+
+        $client_id = $request->client_id;
+        $trader_id = $request->trader_id;
+        $update_data = array(
+            'trader_id'=>$request->trader_id
+        );
+        tap(Client::whereId($client_id))->update($update_data);
+ 
+        $client_name = "";
+        $query = Client::where('id',$client_id)->get(['first_name','last_name']);
+
+        foreach($query as $q){
+            $client_name = $q->first_name." ".$q->last_name;
+        }
+        $log = array(
+            'forex_id'=>Session::get('id'),
+            'activity'=>"Trader Assignment",
+            'description'=>"Client Name: ".$client_name.' | Trader ID: '.$request->trader_id
+        );
+
+        ForexLog::create($log);
+        return response()->json(['msg'=>"saved"]);
+
+     }
+
+     public function traderName(Request $request){
+         $trader_id = $request->trader_id;
+
+         $query = Forex::whereId($trader_id)->get();
+         foreach($query as $q){
+             $trader['name'] = $q->first_name." ".$q->last_name;
+         }
+         return $trader;
+     }
+
+     public function setLiquidity(){
+         return view('forex.liquidity');
+     }
+    
+     public function saveLiquidity(Request $request){
+        $id = Liquidity::create($request->all())->id;
+        Session::put('liquidity_id',$id);
+        return redirect('/trader/bookorder');
+     }
+
 }

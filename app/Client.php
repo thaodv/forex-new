@@ -53,4 +53,7 @@ class Client extends Model
             'contact_person'
     ];
 
+    public function trader(){
+        return $this->hasOne('App\Forex');
+    }
 }

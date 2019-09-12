@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
-use App\Client;
+use App\Liquidity;
 use Illuminate\Http\Request;
-use Session;
-class BookOrderController extends Controller
+
+class LiquidityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function index()
     {
-        $data = array(
-            'oders'=>Order::all()
-        );
-        return view('orders.list',$data);
+        //
     }
 
     /**
@@ -27,17 +23,10 @@ class BookOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { 
-        $data['list'] = Client::whereStatus("Approved")
-        ->whereForexId(Session::get('id'))
-        ->get(['id','first_name','last_name']);
-
-        
-
-        return view('orders.create',$data);
+    {
+        //
     }
 
-    
     /**
      * Store a newly created resource in storage.
      *
@@ -52,10 +41,10 @@ class BookOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param  \App\Liquidity  $liquidity
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Liquidity $liquidity)
     {
         //
     }
@@ -63,10 +52,10 @@ class BookOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param  \App\Liquidity  $liquidity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit(Liquidity $liquidity)
     {
         //
     }
@@ -75,10 +64,10 @@ class BookOrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
+     * @param  \App\Liquidity  $liquidity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Liquidity $liquidity)
     {
         //
     }
@@ -86,10 +75,10 @@ class BookOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order  $order
+     * @param  \App\Liquidity  $liquidity
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Liquidity $liquidity)
     {
         //
     }

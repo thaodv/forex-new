@@ -63,14 +63,16 @@
                             <br/>Position: <strong>{{$clientDetails->auth_1_trader_position}}</strong>
                             <br/>Nationality: <strong>{{$clientDetails->auth_1_trader_nationality}}</strong>
                             <br/>Contact Number: <strong>{{$clientDetails->auth_1_trader_contact_number}}</strong>
-                            <br/>Signature:<br/><strong>Image of Picture</strong>
+                            <br/>Signature:<br/> 
+                        <img src="http://localhost/forex/storage/app/{{$clientDetails->auth_1_trader_signature}}.png" width="300" height="200"/>
                         </div>
                         <div class="form-group col-md-6">
                             Name: <strong>{{$clientDetails->auth_2_trader_name}}</strong>
                             <br/>Position: <strong>{{$clientDetails->auth_2_trader_position}}</strong>
                             <br/>Nationality: <strong>{{$clientDetails->auth_2_trader_nationality}}</strong>
                             <br/>Contact Number: <strong>{{$clientDetails->auth_2_trader_contact_number}}</strong>
-                            <br/>Signature:<br/><strong>Image of Picture</strong>
+                            <br/>Signature:<br/>
+                            <img src="http://localhost/forex/storage/app/{{$clientDetails->auth_2_trader_signature}}.png" width="300" height="200"/>
                         </div>
 
                         <div class="form-group col-md-12">
@@ -188,7 +190,9 @@
                         success: function(msg) {   
                             console.log(msg.msg);
                             document.getElementById("clientStatus").innerHTML = statusAction;   
-                            showActionBtns();                                     
+
+                            alert("Saved");
+                            $('#divReason').hide();                            
                         }
                     }); 
         }
