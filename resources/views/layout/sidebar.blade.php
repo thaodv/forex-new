@@ -146,7 +146,7 @@
 
 @if(Session::get('user_type')=="Trader")
 <!-- Nav Item - Clients Collapse Menu -->
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBlotter" aria-expanded="true" aria-controls="collapseBlotter">
       <i class="fas fa-fw fa-wrench"></i>
       <span>Blotter</span>
@@ -169,12 +169,12 @@
       <a class="collapse-item" href="{{route('trader.list')}}">List</a> 
     </div>
   </div>
-</li>
+</li> --}}
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseClients">
+<a class="nav-link collapsed" href="{{route('trader.blotter')}}"  aria-expanded="true" aria-controls="collapseClients">
       <i class="fas fa-fw fa-wrench"></i>
-      <span>Order Booking</span>
+      <span>Trading</span>
     </a>
     <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">

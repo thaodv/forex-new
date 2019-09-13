@@ -15,8 +15,52 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid" id="app">
-
+              <!-- Page Heading -->
+              <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 
+                <a href="{{route('trader.create')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Book Order</a>
+              </div>
+
+              @if($blotter!=null)
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4" id="lead_div" >
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Summary {{date('m-d-y')}}</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Buy Wgt Avg</th>
+                            <th>Total USD Bought</th> 
+                            <th>Total PHP Sold</th> 
+                            <th>Total PHP Bought</th> 
+                            <th>Total USD Sold</th>
+                            <th>Sell Wgt Avg</th>                             
+                            <th>FX Position</th> 
+                             
+                          </tr>
+                        </thead> 
+                        <tbody>
+                          @foreach($blotter as $blotterDetails)
+                          <tr>
+                            <td>{{$blotterDetails->buy_war}}</td>
+                            <td>{{$blotterDetails->dollar_bought}}</td>
+                            <td>{{$blotterDetails->peso_sold}}</td>
+                            <td>{{$blotterDetails->peso_bought}}</td>
+                            <td>{{$blotterDetails->dollar_sold}}</td>
+                            <td>{{$blotterDetails->sell_war}}</td>
+                            <td>{{$blotterDetails->fx_position}}</td> 
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div><!--datatables-->
+                @endif
+
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4" id="lead_div" >
                   <div class="card-header py-3">
@@ -30,7 +74,7 @@
                             <th>Client</th>
                             <th>Bought Currency</th> 
                             <th>Amount</th> 
-                            <th>Bought Currency</th> 
+                            <th>Sold Currency</th> 
                             <th>Amount</th>
                             <th>Rate</th>                             
                             <th>Status</th>

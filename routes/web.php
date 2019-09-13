@@ -62,7 +62,7 @@ Route::post('/client/atp-store',"ClientController@saveAtpForm")->name('client.sa
 
 Route::get('/signature/{signee}',"LeadController@signatureWindow");
 
-Route::get('/trader/list',"ClientController@traderList")->name('trader.list');
+// Route::get('/trader/list',"ClientController@traderList")->name('trader.list');
 Route::get('/trader/orders',"OrderController@traderOrderList")->name('trader.orders');
 Route::get('/trader/bookorder/',"OrderController@traderOrderCreate")->name('trader.create');
 Route::post('/order/store',"OrderController@store")->name('order.store');
@@ -75,3 +75,7 @@ Route::get('/prospect/new',"ProspectLeadController@create")->name('prospect.new'
 Route::post('/prospect/store',"ProspectLeadController@store")->name('prospect.store');
 Route::post('/prospect/outcome-of-call',"ProspectLeadController@callsummary")->name('prospect.callsummary');
 Route::get('/prospect/onboard',"ProspectLeadController@onboard")->name('prospect.onboard');
+
+
+Route::get('/trader/blotter',"TransactionController@index")->name('trader.blotter');
+Route::post('/trader/book-order',"TransactionController@saveTransaction")->name('trader.save');

@@ -16,8 +16,47 @@
             <!-- Begin Page Content -->
             <div class="container-fluid" id="app">
 
-                
+                {{-- @if($blotter!=null)
                 <!-- DataTales Example -->
+                <div class="card shadow mb-4" id="lead_div" >
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Summary {{date('m-d-y')}}</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Buy Wgt Avg</th>
+                            <th>Total USD Bought</th> 
+                            <th>Total PHP Sold</th> 
+                            <th>Total PHP Bought</th> 
+                            <th>Total USD Sold</th>
+                            <th>Sell Wgt Avg</th>                             
+                            <th>FX Position</th> 
+                             
+                          </tr>
+                        </thead> 
+                        <tbody>
+                          @foreach($blotter as $blotterDetails)
+                          <tr>
+                            <td>{{$blotterDetails->buy_war}}</td>
+                            <td>{{$blotterDetails->dollar_bought}}</td>
+                            <td>{{$blotterDetails->peso_sold}}</td>
+                            <td>{{$blotterDetails->peso_bought}}</td>
+                            <td>{{$blotterDetails->dollar_sold}}</td>
+                            <td>{{$blotterDetails->sell_war}}</td>
+                            <td>{{$blotterDetails->fx_position}}</td> 
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div><!--datatables-->
+                @endif --}}
+
+                {{-- <!-- DataTales Example -->
                 <div class="card shadow mb-4" id="clientList" >
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Clients</h6>
@@ -46,32 +85,24 @@
                       </table>
                     </div>
                   </div>
-                </div><!--datatables-->
+                </div><!--datatables--> --}}
 
-                <div class="card shadow mb-4" id="orderform" style="display:none;" >
+                <div class="card shadow mb-4" id="orderform"  >
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Book Order</h6>
                         </div>
                         <div  id="cisForm">
-                          <form action="{{route('order.store')}}" method="post">
+                          <form action="{{route('trader.save')}}" method="post">
                             <br/><br/>
                               <div class="row offset-1"><!-- Content Row -->
                                 @csrf
                                 <input type="hidden" name="trader_id" value="{{Session::get('id')}}"/>
-                                <input type="hidden" name="status" value="New"/>
+                                <input type="hidden" name="status" value="1"/>
                                 @foreach($list as $clientDetails)
                                 <input type="hidden" name="forex_id" value="{{$clientDetails->forex_id}}"/>
                                 <input type="hidden" name="client_id" value="{{$clientDetails->id}}"/>
                                 @endforeach
-
-                                <div class="col-md-8">
-                                  <div class="form-group">
-                                    <label>Beginning Balance</label>
-                                    <input class="form-control" name="beginning_balance" readonly  id="beginning_balance" type="text" value="{{Session::get('beginning_balance')}}"  >
-                                  </div>
-                              </div>
-
-
+                                
                                 <div class="col-md-8">
                                     <div class="form-group">
                                       <label>Counter Party</label>
@@ -122,6 +153,7 @@
                                       <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
+                                <input type="hidden" name="txn_type" id="txn_type"/>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                       <input class="form-control"  name="bought_amount" onkeyup="calculateSoldAmount()" id="bought_amount" type="number" step="any" placeholder="0.00" required="required" data-validation-required-message="Please enter the purpose of transaction">
@@ -283,8 +315,10 @@ function showList(){
 
 function  setSoldCurrency(selectedCurrency){
     if(selectedCurrency=="PHP"){
+        document.getElementById('txn_type').value = "Buy";
         document.getElementById('currency_selected').value = "USD";
     }else{
+        document.getElementById('txn_type').value = "Sell";
         document.getElementById('currency_selected').value = "PHP";
     }
 }
@@ -297,8 +331,7 @@ $('#currency2Btn').change(function(){
 
 function calculateSoldAmount(){
 
-    var balance = {{Session::get('beginning_balance')}};    
-    var amount = document.getElementById('bought_amount').value;
+     var amount = document.getElementById('bought_amount').value;
     var rate = document.getElementById('rate').value;
     var total = "";
 
@@ -311,11 +344,8 @@ function calculateSoldAmount(){
         total= amount / rate;
         total = parseFloat(total,2);
     }
-    console.log(total);
-    var ending_balance = balance - total; 
-    document.getElementById('beginning_balance').value = ending_balance.toFixed(2);
+    console.log(total);    
     document.getElementById('sold_amount').value = total.toFixed(2);
-    //document.getElementById('total_amount').value = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 }
 </script>

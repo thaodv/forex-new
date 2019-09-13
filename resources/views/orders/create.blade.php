@@ -51,7 +51,7 @@
                               <div class="col-md-8">
                                 <div class="form-group">
                                   <label>Beginning Balance</label>
-                                  <input class="form-control" name="beginning_balance" readonly  id="beginning_balance" type="text" value="90000000"  >
+                                  <input class="form-control" name="beginning_balance" readonly  id="beginning_balance" type="text" value="{{Session::get('beginning_balance')}}"  >
                                 </div>
                             </div>
 
@@ -71,12 +71,7 @@
                               <div class="col-md-8">
                                       <div class="form-group">
                                         <label>Dealer</label>
-                                        <select class="form-control" name="dealer">
-                                          @foreach($list as $nameList)
-                                          <option value="{{$nameList->id}}">{{$nameList->first_name}}</option>
-                                          @endforeach
-                                        </select>
-                                         <p class="help-block text-danger"></p>
+                                        <input type="text" readonly class="form-control user" name="dealer" value="{{Session::get('name')}}"/>                                      
                                       </div>
                                   </div>
                             </div><!-- end of content row -->
@@ -112,7 +107,7 @@
                               </div>
                               <div class="col-md-3">
                                   <div class="form-group">
-                                    <input class="form-control"  name="bought_amount" onkeyup="calculateSoldAmount()" id="bought_amount" type="number" step="any" placeholder="0.00" required="required" data-validation-required-message="Please enter the purpose of transaction">
+                                    <input class="form-control"  name="bought_amount" onkeyup="calculateSoldAmount()" id="bought_amount" type="text"   placeholder="0.00" required="required" data-validation-required-message="Please enter the amount">
                                     <p class="help-block text-danger"></p>
                                   </div>
                               </div>
@@ -125,7 +120,7 @@
                               </div> 
                               <div class="col-md-3">
                                   <div class="form-group">
-                                    <input class="form-control" name="rate"  id="rate" type="number" step="any" onkeyup="calculateSoldAmount()" placeholder="0.00" required="required" data-validation-required-message="Please enter the purpose of transaction">
+                                    <input class="form-control" name="rate"  id="rate" type="text"   onkeyup="calculateSoldAmount()" placeholder="0.00" required="required" data-validation-required-message="Please enter the amount">
                                     <p class="help-block text-danger"></p>
                                   </div>
                               </div>
@@ -249,42 +244,54 @@
   </a>
   @include('layout.footer')
   
-<script>
 
- 
-  
+  <script>
 
-
-  // $('#name').keyup(function (){
-
-  //       var nameValue = document.getElementById('name').value;
-
-  //       if(nameValue.length>0){
-
-  //         var url = "http://forex.test/client/listName";
-  //         var data = {
-  //           name:  nameValue,
-  //           _token: '{{csrf_token()}}'
-  //         }
-  //         $.ajax({ //Process the form using $.ajax()
-  //             type      : 'POST', //Method type
-  //             url       : url,  
-  //             data      : data,
-  //             dataType  : 'json',
-  //             success: function(msg) {  
-  //               console.log(msg.list);
-  //               if(msg.list.length==1){
-  //                 document.getElementById('name').value = null;
-  //                 document.getElementById('name').value = msg.list;
-  //               }
-                
-  //             }
-  //         }); 
-          
-  //       }
-
-  //     });       
-      
-      
-
-</script>
+    function bookOrder(client_id){
+    
+        $('#clientList').hide();
+        $('#orderform').show();
+    }
+    function showList(){
+        $('#clientList').show();
+        $('#orderform').hide();
+    }
+    
+    function  setSoldCurrency(selectedCurrency){
+        if(selectedCurrency=="PHP"){
+            document.getElementById('currency_selected').value = "USD";
+        }else{
+            document.getElementById('currency_selected').value = "PHP";
+        }
+    }
+    $('#currency1Btn').change(function(){
+      calculateSoldAmount();
+    });
+    $('#currency2Btn').change(function(){
+      calculateSoldAmount();
+    });
+    
+    function calculateSoldAmount(){
+    
+        var balance = {{Session::get('beginning_balance')}};    
+        var amount = document.getElementById('bought_amount').value;
+        var rate = document.getElementById('rate').value;
+        var total = "";
+    
+        if(document.getElementById('currency1Btn').checked){
+            document.getElementById('currency_selected').value = "PHP";
+            total = amount * rate;
+            total = parseFloat(total,2);
+        }else{
+            document.getElementById('currency_selected').value = "USD";
+            total= amount / rate;
+            total = parseFloat(total,2);
+        }
+        console.log(total);
+        var ending_balance = balance - total; 
+        document.getElementById('beginning_balance').value = ending_balance.toFixed(2);
+        document.getElementById('sold_amount').value = total.toFixed(2);
+        //document.getElementById('total_amount').value = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
+    }
+    </script>

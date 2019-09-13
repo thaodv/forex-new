@@ -9,6 +9,7 @@ use App\ForexLog;
 use App\Liquidity;
 use Illuminate\Http\Request;
 use Session;
+use App\Blotter;    
 
 class ForexController extends Controller
 {
@@ -38,12 +39,23 @@ class ForexController extends Controller
                     'is_logged_in'=>true
                 );
                 Forex::whereId($id)->update($update_data);
+                $balance = Liquidity::findOrFail(1)->get('beginning_balance');
+                foreach($balance as $b){
+                    $balance = $b->beginning_balance;
+                }
+                $blotter_id = Blotter::max('id');
+                if($blotter_id==null){
+                    $blotter_id = 0;
+                }
+                Session::put('blotter_id',$blotter_id);
+                
 
                 Session::put('name',$data->first_name." ".$data->last_name);
                 Session::put('user_type',$data->user_type);
                 Session::put('id',$data->id);
-
-                return redirect('/dashboard/');
+                Session::put('beginning_balance',$balance);
+            
+                 return redirect('/dashboard/');
             }
 
          }
