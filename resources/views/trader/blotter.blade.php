@@ -16,7 +16,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid" id="app">
 
-                {{-- @if($blotter!=null)
+                
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4" id="lead_div" >
                   <div class="card-header py-3">
@@ -27,59 +27,56 @@
                       <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th>Buy Wgt Avg</th>
-                            <th>Total USD Bought</th> 
-                            <th>Total PHP Sold</th> 
-                            <th>Total PHP Bought</th> 
-                            <th>Total USD Sold</th>
-                            <th>Sell Wgt Avg</th>                             
+                            <th>Buy war</th>
+                            <th>$ Bought</th> 
+                            <th>&#8369; Sold</th> 
+                            <th>&#8369; Bought</th> 
+                            <th>$ Sold</th>
+                            <th>Sell war</th>                             
                             <th>FX Position</th> 
+                            <th>Avg Margin</th> 
                              
                           </tr>
                         </thead> 
                         <tbody>
-                          @foreach($blotter as $blotterDetails)
                           <tr>
-                            <td>{{$blotterDetails->buy_war}}</td>
-                            <td>{{$blotterDetails->dollar_bought}}</td>
-                            <td>{{$blotterDetails->peso_sold}}</td>
-                            <td>{{$blotterDetails->peso_bought}}</td>
-                            <td>{{$blotterDetails->dollar_sold}}</td>
-                            <td>{{$blotterDetails->sell_war}}</td>
-                            <td>{{$blotterDetails->fx_position}}</td> 
+                            <td>{{$buy_war}}</td>
+                            <td>{{$dollar_bought}}</td>
+                            <td>{{$peso_sold}}</td>
+                            <td>{{$peso_bought}}</td>
+                            <td>{{$dollar_sold}}</td>
+                            <td>{{$sell_war}}</td>
+                            <td>{{$fx_position}}</td> 
+                            <td>{{$avg_mrgn}}</td> 
                           </tr>
-                          @endforeach
+                          
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div><!--datatables-->
-                @endif --}}
+                
 
                 {{-- <!-- DataTales Example -->
-                <div class="card shadow mb-4" id="clientList" >
+                <div class="card shadow mb-4" id="doneDealList" >
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Clients</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Done Deal</h6>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th>Name</th>
-                            <th>Contact Number</th>  
-                            <th>Date Added</th>
-                            <th>Action</th>
+                            <th>Client</th>
+                            <th>Rate</th>   
                           </tr>
                         </thead> 
                         <tbody>
                           @foreach($list as $listDetails)
                           <tr>
-                            <td>{{$listDetails->first_name}} {{$listDetails->last_name}}</td>
-                            <td>{{$listDetails->contact_number}}</td>
-                            <td>{{$listDetails->created_at}}</td>
-                            <td><button onclick="bookOrder({{$listDetails->id}})" class="btn btn-primary">Book Order</button></td>
-                          </tr>
+                            <td>{{$listDetails->client_id}}</td>
+                            <td>@if($listDetails->txn_type=="Sell"){{$listDetails->buy_war}}@else{{$listDetails->sell_war}}@endif</td>                             
+                           </tr>
                           @endforeach
                         </tbody>
                       </table>

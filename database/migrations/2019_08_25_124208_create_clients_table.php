@@ -34,6 +34,22 @@ class CreateClientsTable extends Migration
             $table->string('bank_account_number')->nullable(true);
             $table->string('contact_number')->nullable(true);
             $table->string('email_address')->nullable(true);
+            $table->string('biz_legal_name')->nullable(true);
+            $table->string('biz_trade_name')->nullable(true);
+            $table->string('biz_tel_number')->nullable(true);
+            $table->string('biz_fax_number')->nullable(true);
+            $table->string('biz_email')->nullable(true);
+            $table->string('biz_website')->nullable(true);
+            $table->string('nature_of_biz')->nullable(true);
+            $table->string('biz_tin')->nullable(true);
+            $table->string('biz_bank_name')->nullable(true);
+            $table->string('biz_bank_account_no')->nullable(true);
+            $table->string('biz_bsp_license_no')->nullable(true);
+            $table->string('biz_bsp_issuance')->nullable(true);
+            $table->string('biz_primary_contact_person')->nullable(true);
+            $table->string('biz_contact_id')->nullable(true);
+            $table->string('biz_sec')->nullable(true);
+            $table->string('biz_dti_number')->nullable(true);
             $table->string('auth_1_trader_name')->nullable(true);
             $table->string('auth_1_trader_position')->nullable(true);
             $table->string('auth_1_trader_nationality')->nullable(true);
@@ -53,14 +69,7 @@ class CreateClientsTable extends Migration
             $table->string('status')->nullable(true);
             $table->string('compliance')->nullable(true);
             $table->string('compliance_reason')->nullable(true);
-            $table->string('total_transactions')->nullable(true);
-            $table->string('phone_number')->nullable(true);
-            $table->string('telephone_number')->nullable(true);
-            $table->string('email')->nullable(true);
-            $table->string('company_name')->nullable(true);
-            $table->string('website')->nullable(true);
-            $table->string('contact_person')->nullable(true);
-            $table->string('compliance_time')->nullable(true);
+            $table->string('total_transactions')->nullable(true); 
             
             $table->timestamps();
         });

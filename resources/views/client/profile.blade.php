@@ -79,22 +79,128 @@
                             <br/><h6 class="m-0 font-weight-bold text-primary">Client's Signature</h6> 
                             Image of Picture<br/>
                         </div>
-
                         <div class="form-group col-md-12">
-                                <h6 class="m-0 font-weight-bold text-primary">Supporting Documents</h6>
-                                Governemnt ID<br/>
-                                Company ID<br/>
-                                Proof of Billing 
+                        <br/><h6 class="m-0 font-weight-bold text-primary">Supporting Documents</h6>
+                            Governemnt ID<br/>
+                            Company ID<br/>
+                            Proof of Billing 
                         </div>
+                        <div class="form-group col-md-12">
+                            <br/><h6 class="m-0 font-weight-bold text-primary">Checklist</h6>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="list_gis" value="gis"> GIS
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="list_cis" value="cis"> CIS
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="list_articles_of_inc" value="articles_of_inc"> Articles of Inc
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="valid_ids" value="valid_ids"> Valid IDs
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="by_laws" value="by_laws"> By Laws
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="list_cis" value="cis"> Notarized Sec. Cert
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="list_articles_of_inc" value="articles_of_inc"> Source of Funds
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="valid_ids" value="valid_ids"> AMLA Cert
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="by_laws" value="by_laws"> Proof Of Billing
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="valid_ids" value="valid_ids"> DTI Cert
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="by_laws" value="by_laws"> Business Permit
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="by_laws" value="by_laws"> BSP Cert
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="checkbox" name="by_laws" value="by_laws"> DPA Consent
+                        </div>
+
+
                          
                     @endif 
                         @if($clientDetails->status == "New")
+                        
+                        <div class="form-group col-md-12">
+                            <br/><h6 class="m-0 font-weight-bold text-primary">Risk Tool</h6>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Date of Scoring</label>
+                        <input type="text" class="form-control-user form-control" readonly name="scoring" value="{{date('d/m/Y')}}"/>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Location</label>
+                            <select class="form-control-user form-control" name="location"><option value="">Philippines</option></select>         
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Origin of Headquarters or place of incorporation</label>
+                            <select class="form-control-user form-control" name="headquarter"><option value="">Philippines</option></select>                       
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Method of Acquisition</label>
+                            <select class="form-control-user form-control" name="acquisition"><option value="">Referral</option></select>                       
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Organization Type</label>
+                            <select class="form-control-user form-control" name="organization_type"><option value="">Individual</option></select>                       
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Date Customer Founded / Incorporated</label>
+                            <input type="text" class="form-control-user form-control" name="headquarter" value="16 September 1992"/>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Date Began as Customer</label>
+                            <input type="text" class="form-control-user form-control" name="headquarter" value="16 September 2012"/>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label>Industry</label>
+                            <select class="form-control-user form-control" name="industry"><option value="">Individual</option></select>                       
+                        </div>
+
+                        <div class="form-group  col-md-9">
+                                <label>Mandatory High Risk Categories</label>
+                                <select class="form-control-user form-control" name="risk_category"><option value="">Not Applicable</option></select>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <h6 class="m-0 font-weight-bold text-primary">Weighted Risk Rating</h6>
+                            <h6 class="m-0 font-weight-bold text-danger">7.7</h6>
+                            <h6 class="m-0 font-weight-bold text-danger">High Risk: Please re-accredit this client annually</h6>
+                            <h6 class="m-0 font-weight-bold ">Next Accreditation is due: <span class="text-danger">September 2020</span></h6>
+
+                        </div>
+                        
+
+
+
+
+
+
+
+
+
+
+
+
                         <div class="form-group col-md-12" id="actionBtns">
                             <button class="btn btn-success" onclick="action(1,{{$clientDetails->id}})">Approve</button> 
                             <button class="btn btn-warning" onclick="action(2,{{$clientDetails->id}})">Incomplete</button>
                             <button class="btn btn-danger" onclick="action(3,{{$clientDetails->id}})">Decline</button>
                         </div>
                         <hr/>
+
                         @endif
                         <div class="form-group col-md-8" style="display: none;" id="divReason">
                             <h6 class="m-0 font-weight-bold text-primary">Details</h6><br/>
@@ -191,7 +297,7 @@
                             console.log(msg.msg);
                             document.getElementById("clientStatus").innerHTML = statusAction;   
 
-                            alert("Saved");
+                            location.reload();
                             $('#divReason').hide();                            
                         }
                     }); 

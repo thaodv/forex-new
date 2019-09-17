@@ -15,12 +15,16 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid" id="app">
-
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Prospect Leads</h1>
+                    <a href="{{route('prospect.list')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Go to List</a>
+                </div>
                
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4" id="lead_div" >
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Create New Prospect</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Create</h6>
                   </div>
 
                     <form action="{{route('prospect.store')}}" method="post">
@@ -29,6 +33,8 @@
                         
                         
                         <input type="hidden" name="forex_id" value="{{Session::get('id')}}"/>
+ 
+                        <input type="hidden" name="status" value="New"/>
                         @csrf
 
                         <div class="col-md-10">

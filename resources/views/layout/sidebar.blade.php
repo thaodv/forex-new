@@ -28,7 +28,7 @@
 </div>
 
 <!-- Nav Item - Users Collapse Menu -->
-@if(Session::get('user_type')=="Developer")
+@if(Session::get('user_type')=="Lead")
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
     <i class="fas fa-fw fa-cog"></i>
@@ -44,10 +44,10 @@
 </li>
 @endif
 
-@if(Session::get('user_type')=="Dev" || Session::get('user_type')=="Fao")
+@if(Session::get('user_type')=="FAO")
 <!-- Nav Item - Leads Collapse Menu -->
 <li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLeads" aria-expanded="true" aria-controls="collapseLeads">
+  <a class="nav-link collapsed" href="{{route('prospect.list')}}"  aria-expanded="true" aria-controls="collapseLeads">
     <i class="fas fa-fw fa-wrench"></i>
     <span>Prospect Leads</span>
   </a>
@@ -55,7 +55,7 @@
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Forex Leads:</h6>
       <a class="collapse-item" href="{{route('prospect.list')}}">List</a>
-      <a class="collapse-item" href="{{route('prospect.new')}}">Add New Lead</a>
+      <a class="collapse-item" href="{{route('prospect.new')}}">Add Prospect Lead</a>
       <a class="collapse-item" href="{{route('prospect.onboard')}}">On-board Prospect Lead</a>      
       <a class="collapse-item" href="{{route('lead.approval')}}">For Approval</a>
     </div>
@@ -98,7 +98,7 @@
  
 @endif
 
-@if(Session::get('user_type')=="Com")
+@if(Session::get('user_type')=="Legalizer")
 <!-- Nav Item - Clients Collapse Menu -->
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients" aria-expanded="true" aria-controls="collapseClients">
@@ -128,7 +128,7 @@
 </li>
 @endif
 
-@if(Session::get('user_type')=="DeptHead")
+@if(Session::get('user_type')=="Head")
 <!-- Nav Item - Clients Collapse Menu -->
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients" aria-expanded="true" aria-controls="collapseClients">
@@ -144,43 +144,18 @@
 </li>
 @endif
 
-@if(Session::get('user_type')=="Trader")
-<!-- Nav Item - Clients Collapse Menu -->
-{{-- <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBlotter" aria-expanded="true" aria-controls="collapseBlotter">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>Blotter</span>
-    </a>
-    <div id="collapseBlotter" class="collapse" aria-labelledby="headingBlotter" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Forex Blotter:</h6>
-        <a class="collapse-item" href="{{route('forex.liquidity')}}">Set Liquidity</a> 
-      </div>
-    </div>
-  </li>
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients" aria-expanded="true" aria-controls="collapseClients">
-    <i class="fas fa-fw fa-wrench"></i>
-    <span>Clients</span>
-  </a>
-  <div id="collapseClients" class="collapse" aria-labelledby="headingClients" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">Forex Clients:</h6>
-      <a class="collapse-item" href="{{route('trader.list')}}">List</a> 
-    </div>
-  </div>
-</li> --}}
+@if(Session::get('user_type')=="Trader" || Session::get('user_type')=="Trading-Assistant")
 
 <li class="nav-item">
-<a class="nav-link collapsed" href="{{route('trader.blotter')}}"  aria-expanded="true" aria-controls="collapseClients">
+<a class="nav-link collapsed" href="#"  data-toggle="collapse" aria-expanded="true" data-target="#collapseTrade" aria-controls="collapseTrade">
       <i class="fas fa-fw fa-wrench"></i>
       <span>Trading</span>
     </a>
-    <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
+    <div id="collapseTrade" class="collapse" aria-labelledby="headingTrade" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Clients' Order:</h6>
-        <a class="collapse-item" href="{{route('trader.orders')}}">List</a>
-        <a class="collapse-item" href="{{route('trader.create')}}">Book Order</a>
+        <h6 class="collapse-header">Book Order:</h6>
+        <a class="collapse-item" href="{{route('trader.blotter')}}">Book Order</a>
+        <a class="collapse-item" href="{{route('trader.summary')}}">Trade Summary</a> 
       </div>
     </div>
   </li>
@@ -190,7 +165,7 @@
 
 <!-- Nav Item - Logs Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLogs" aria-expanded="true" aria-controls="collapseLeads">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLogs" aria-expanded="true" aria-controls="collapseLogs">
       <i class="fas fa-fw fa-wrench"></i>
       <span>Logs</span>
     </a>

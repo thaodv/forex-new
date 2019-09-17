@@ -7,6 +7,7 @@ use App\Forex;
 use App\Signature;
 use App\ForexLog;
 use App\Lead;
+use App\ProspectLead;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Storage;
@@ -94,20 +95,24 @@ class ClientController extends Controller
         $client->doc_gov_id = "";//$request->doc_gov_id;
         $client->doc_company_id = "";//$request->doc_company_id;
         $client->doc_billing_address = "";//$request->doc_billing_address;
-        $client->cis_form_signature = "";//$request->cis_form_signature;
-        $client->cis_form_signatory = "";//$request->cis_form_signatory;
+        $client->cis_form_signature = $request->client_signature_id;
+        $client->cis_form_signatory = $request->client_signatory;
         $client->cis_form_date_signed = now();
         $client->status = "New";
         $client->total_transactions = "0";
-        
-
         $client->save();
         $client_name = $request->first_name.' '.$request->last_name;
+
         $log = array(
             'forex_id'=>Session::get('id'),
             'activity'=>"Onboarding Client",
             'description'=>"Lead Name: ".$client_name.' | Compliance ID: '.$request->forex_id
         );
+
+        $call = ProspectLead::find($request->prospect_id);
+        $call->id = $request->prospect_id;
+        $call->status = "Client"; 
+        $call->save();
 
         ForexLog::create($log);
         return redirect('/client/list');
@@ -194,6 +199,15 @@ class ClientController extends Controller
                 ->get()
         ); 
         return view('trader.trader_list',$data);
+    }
+
+    public function getClientDetails(Request $request){
+        $clientId = $request->client_id;
+        $data = Client::whereId($client_id)->get(['first_name','last_name']);
+        foreach($data as $d){
+            $name = $d->first_name." ".$d->last_name;
+        }
+        return $name;
     }
 
     public function atp(){

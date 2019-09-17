@@ -29,33 +29,31 @@ class ForexController extends Controller
             $checkIfExists = Forex::where('email',$request->email)->where('password',$request->password)->first();
             
             if(empty($checkIfExists)){
+                
                 return "Not a user";
+                
             }else{
 
                 $data = Forex::where('email',$request->email)->first();
                 $id = $data->id;
-
+                $user_type = $data->user_type;
+                $name = $data->first_name." ".$data->last_name;
                 $update_data = array(
                     'is_logged_in'=>true
                 );
-                Forex::whereId($id)->update($update_data);
-                $balance = Liquidity::findOrFail(1)->get('beginning_balance');
-                foreach($balance as $b){
-                    $balance = $b->beginning_balance;
-                }
-                $blotter_id = Blotter::max('id');
-                if($blotter_id==null){
-                    $blotter_id = 0;
-                }
-                Session::put('blotter_id',$blotter_id);
-                
+                Forex::whereId($id)->update($update_data); 
+                $log = array(
+                    'forex_id'=>$id,
+                    'activity'=>"Login",
+                    'description'=>"Success"
+                );
+                ForexLog::create($log);
 
-                Session::put('name',$data->first_name." ".$data->last_name);
-                Session::put('user_type',$data->user_type);
-                Session::put('id',$data->id);
-                Session::put('beginning_balance',$balance);
-            
-                 return redirect('/dashboard/');
+                Session::put('name',$name);
+                Session::put('user_type',$user_type);
+                Session::put('id',$id);
+             
+                return redirect('/dashboard/');
             }
 
          }
@@ -67,7 +65,13 @@ class ForexController extends Controller
         $update_data = array(
             'is_logged_in'=>false
         );
-        Forex::whereId($id)->update($update_data);
+        Forex::whereId($id)->update($update_data);        
+        $log = array(
+            'forex_id'=>$id,
+            'activity'=>"Logout",
+            'description'=>"Success"
+        );
+        ForexLog::create($log);
         Session::flush();
         return redirect('/');
     }

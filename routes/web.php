@@ -73,9 +73,18 @@ Route::get('/order/atp',"ClientController@atp")->name('order.atp');
 Route::get('/prospect/list',"ProspectLeadController@index")->name('prospect.list');
 Route::get('/prospect/new',"ProspectLeadController@create")->name('prospect.new');
 Route::post('/prospect/store',"ProspectLeadController@store")->name('prospect.store');
+Route::post('/prospect/update',"ProspectLeadController@update")->name('prospect.update');
 Route::post('/prospect/outcome-of-call',"ProspectLeadController@callsummary")->name('prospect.callsummary');
 Route::get('/prospect/onboard',"ProspectLeadController@onboard")->name('prospect.onboard');
-
+Route::post('/prospect/call-outcome',"ProspectLeadController@callOutCome");
+Route::post('/prospect/delete',"ProspectLeadController@destroy");
+Route::get('/prospect/onboardprospect/{id}',"ProspectLeadController@onBoardProspect");
 
 Route::get('/trader/blotter',"TransactionController@index")->name('trader.blotter');
-Route::post('/trader/book-order',"TransactionController@saveTransaction")->name('trader.save');
+Route::post('/trader/blotter',"TransactionController@saveTransaction")->name('trader.save');
+Route::get('/trader/summary',"TransactionController@tradeSummary")->name('trader.summary');
+Route::get('/trader/confirm/{id}',"TransactionController@confirmTransaction");
+Route::get('/trader/approve/{id}',"TransactionController@approveTransaction");
+
+Route::post('/forex/{id}',"ForexController@getForexDetails");
+Route::post('/client',"ClientController@getClientDetails");

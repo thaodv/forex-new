@@ -31,6 +31,7 @@
                             <th>Contact Number</th> 
                             <th>Trader</th>
                             <th>Date Added</th>
+                            <th>Action</th>
                           </tr>
                         </thead> 
                         <tbody>
@@ -44,6 +45,7 @@
                               @endif
                               @endforeach</td>
                             <td>{{$listDetails->created_at}}</td>
+                            <td><a href="/client/profile/{{$listDetails->id}}" >View Profile</a></td>
                           </tr>
                           @endforeach
                         </tbody>

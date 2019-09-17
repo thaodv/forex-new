@@ -35,154 +35,293 @@
                 <div  id="cisForm">
                   <form action="{{route('client.store')}}" method="post">
                     <br/><br/>
-                      <div class="row offset-1"><!-- Content Row -->
-                        @csrf
-                        <div class="col-md-12">
-                            <label>Please choose CIS form Type </label>
-                            <div class="radio">
-                                <label><input type="radio" name="cis_form" value="ind" checked> Individual</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
-                                <label><input type="radio" name="cis_form" value="cor" > Corporate</label>
-                            </div>
-                        </div>
-                        <input type="hidden" name="forex_id" value="{{Session::get('id')}}"/>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>First Name</label>
-                            <input class="form-control" name="first_name" id="first_name" type="text"   data-validation-required-message="Please enter your first name.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">  
-                            <div class="form-group">
-                            <label>Middle Name</label>
-                            <input class="form-control" name="middle_name" id="middle_name" type="text"   data-validation-required-message="Please enter your middle name.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" name="last_name" id="last_name" type="text"   data-validation-required-message="Please enter your last name.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
+                      <div class="row offset-1"><!--content row-->
+                          <div class="col-md-12">
+                            <label class="text-primary">Please choose CIS form Type </label>
+                              <div class="radio">
+                                  <label><input type="radio" onchange="changeCISForm(this.value)" name="cis_form" value="indi" checked> Individual</label>
+                                  &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <label><input type="radio" onchange="changeCISForm(this.value)" name="cis_form" value="corp" > Corporate</label>
+                                  &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <label><input type="radio" onchange="changeCISForm(this.value)" name="cis_form" value="sole" > Sole Proprietor</label>
+                                  &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <label><input type="radio" onchange="changeCISForm(this.value)" name="cis_form" value="part" > Partnership</label>
+                              </div>
+                              <input type="hidden" name="forex_id" value="{{Session::get('id')}}"/>
+                              <input type="hidden" name="prospect_id" value="{{Session::get('onboard_prospect')}}"/>
+                              @csrf
+                          </div>
                       </div><!-- end of content row -->
-                      <div class="row offset-1"><!-- Content Row -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Purpose of Transaction</label>
-                            <input class="form-control" name="purpose_of_txn"  id="purpose_of_txn" type="text"   data-validation-required-message="Please enter the purpose of transaction">
-                            <p class="help-block text-danger"></p>
-                            </div>
+                      
+                      <div id="cis_indi"><!--cis individual-->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>First Name</label>
+                              <input class="form-control" name="first_name" id="first_name" type="text"   data-validation-required-message="Please enter your first name.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">  
+                              <div class="form-group">
+                              <label>Middle Name</label>
+                              <input class="form-control" name="middle_name" id="middle_name" type="text"   data-validation-required-message="Please enter your middle name.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Last Name</label>
+                              <input class="form-control" name="last_name" id="last_name" type="text"   data-validation-required-message="Please enter your last name.">
+                              
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row --> 
+                          <div class="col-md-9">
+                              <div class="form-group">
+                              <label>Present Address</label>
+                              <input class="form-control" name="present_address"  id="present_address" type="tel"   data-validation-required-message="Please enter your present address.">
+                              
+                              </div>
+                          </div>              
+                          <div class="col-md-9">
+                              <div class="form-group">
+                              <label>Permanent Address</label>
+                              <input class="form-control" name="permanent_address"  id="permanent_address" type="text"    data-validation-required-message="Please enter your permanent address.">
+                              
+                              </div>
+                          </div>
+                          </div><!-- end of content row -->
+                          <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-2">
+                              <div class="form-group">
+                              <label>Civil Status</label>
+                              <select class="form-control" name="civil_status"  id="civil_status" type="text"  >
+                                  <option value="S">Single</option>
+                                  <option value="M">Married</option>
+                                  <option value="WS">Widow / Separated</option>
+                              </select>
+                              </div>
+                          </div>
+                          <div class="col-md-2">
+                              <div class="form-group">
+                              <label>Nationality</label>
+                              <input class="form-control" name="nationality"  id="nationality" type="text"   data-validation-required-message="Please enter your nationality.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-2">
+                              <div class="form-group">
+                              <label>Birth date</label>
+                              <input class="form-control" name="birthdate" id="birthdate" type="text"    data-validation-required-message="Please enter your birth date.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Place of birth</label>
+                              <input class="form-control" name="birthplace"  id="birthplace" type="text"   data-validation-required-message="Please enter your place of birth.">
+                              
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-3  ">
+                              <div class="form-group">
+                              <label>Source of Fund</label>
+                              <input class="form-control" name="fund_source"  id="fund_source" type="text"   data-validation-required-message="Please enter the source of fund.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Bank Name</label>
+                              <input class="form-control" name="bank_name"  id="bank_name" type="text"  data-validation-required-message="Please enter bank name.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Bank Account Number</label>
+                              <input class="form-control" name="bank_account_number"  id="bank_account_number" type="text"  data-validation-required-message="Please enter bank account number.">
+                              
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Issued ID Number</label>
+                              <input class="form-control" name="issued_id_number"  id="issued_id_number" type="tel"   data-validation-required-message="Please enter your phone number.">
+                              
+                              </div>
+                          </div>   
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Contact number</label>
+                              <input class="form-control" name="contact_number"  id="contact_number" type="tel"  data-validation-required-message="Please enter your contact number.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Email address</label>
+                              <input class="form-control" name="email_address"  id="email_address" type="text"  data-validation-required-message="Please enter your email address.">
+                              
+                              </div>
+                          </div>                        
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Purpose of Transaction</label>
+                              <input class="form-control" name="purpose_of_txn"  id="purpose_of_txn" type="text"   data-validation-required-message="Please enter the purpose of transaction">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                              <label>Occupation</label>
+                              <input class="form-control" name="occupation"  id="occupation" type="text"   data-validation-required-message="Please enter your occupation.">
+                              
+                              </div>
+                          </div>
+                          
+                        </div><!-- end of content row -->
+                      </div><!--cis individual-->
+
+                      <div id="cis_biz" style="display: none;"><!--cis biz-->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Business Legal Name</label>
+                              <input class="form-control" name="biz_legal_name" id="biz_legal_name" type="text"   data-validation-required-message="Please enter business legal name.">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-4">  
+                              <div class="form-group">
+                              <label>Trade Name</label>
+                              <input class="form-control" name="biz_trade_name" id="biz_trade_name" type="text"   data-validation-required-message="Please enter trade name.">
+                              
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4  ">
+                              <div class="form-group">
+                              <label>Business Telephone Number</label>
+                              <input class="form-control" name="biz_tel_number"  id="biz_tel_number" type="text"   data-validation-required-message="Please enter business telephone number">
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Fax Number</label>
+                              <input class="form-control" name="biz_fax_number"  id="biz_fax_number" type="text"  data-validation-required-message="Please enter fax number.">
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Email Address</label>
+                              <input class="form-control" name="biz_email"  id="biz_email" type="text"   data-validation-required-message="Please enter email address">
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Website URL</label>
+                              <input class="form-control" name="biz_website"  id="biz_website" type="text"  data-validation-required-message="Please enter website URL.">
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Nature of Business</label>
+                              <input class="form-control" name="nature_of_biz"  id="nature_of_biz" type="tel"   data-validation-required-message="Please enter your phone number.">
+                              </div>
+                          </div>   
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Company / Owner's Tax Identification Number</label>
+                              <input class="form-control" name="biz_tin"  id="biz_tin" type="tel"  data-validation-required-message="Please enter your contact number.">
+                              </div>
+                          </div>                    
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Bank Name</label>
+                              <input class="form-control" name="biz_bank_name"  id="biz_bank_name" type="tel"   data-validation-required-message="Please enter your phone number.">
+                              </div>
+                          </div>   
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Bank Account Number (Company)</label>
+                              <input class="form-control" name="biz_bank_account_no"  id="biz_bank_account_no" type="tel"  data-validation-required-message="Please enter your contact number.">
+                              </div>
+                          </div>                    
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>BSP License No. (For RA/MC/FXD)</label>
+                              <input class="form-control" name="biz_bsp_license_no"  id="biz_bsp_license_no" type="text"   data-validation-required-message="Please enter the purpose of transaction">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Date of BSP License Issuance</label>
+                              <input class="form-control" name="biz_bsp_issuance"  id="biz_bsp_issuance" type="text"   data-validation-required-message="Please enter your occupation.">
+                              
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1"><!-- Content Row -->
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>Complete Name of Company's Primary Contact Person</label>
+                              <input class="form-control" name="biz_primary_contact_person"  id="biz_primary_contact_person" type="text"   data-validation-required-message="Please enter the purpose of transaction">
+                              
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form-group">
+                              <label>ID Number of Contact Person (e.g TIN, SSS, Passport)</label>
+                              <input class="form-control" name="biz_contact_id"  id="biz_contact_id" type="text"   data-validation-required-message="Please enter your occupation.">
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                        <div class="row offset-1" id="cis_corp_part"  style="display: none;"> <!-- Content Row -->
+                          <div class="col-md-8">
+                              <div class="form-group">
+                              <label>SEC</label>
+                              <input class="form-control" name="biz_sec"  id="biz_sec" type="text"   data-validation-required-message="Please enter the purpose of transaction">
+                              
+                              </div>
+                          </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Occupation</label>
-                            <input class="form-control" name="occupation"  id="occupation" type="text"   data-validation-required-message="Please enter your occupation.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Issued ID Number</label>
-                            <input class="form-control" name="issued_id_number"  id="issued_id_number" type="tel"   data-validation-required-message="Please enter your phone number.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>    
-                      </div><!-- end of content row -->
-                      <div class="row offset-1"><!-- Content Row --> 
-                        <div class="col-md-9">
-                            <div class="form-group">
-                            <label>Present Address</label>
-                            <input class="form-control" name="present_address"  id="present_address" type="tel"   data-validation-required-message="Please enter your present address.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>              
-                        <div class="col-md-9">
-                            <div class="form-group">
-                            <label>Permanent Address</label>
-                            <input class="form-control" name="permanent_address"  id="permanent_address" type="text"    data-validation-required-message="Please enter your permanent address.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                      </div><!-- end of content row -->
-                      <div class="row offset-1"><!-- Content Row -->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                            <label>Civil Status</label>
-                            <input class="form-control" name="civil_status"  id="civil_status" type="text"   data-validation-required-message="Please enter your civil status.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                            <label>Nationality</label>
-                            <input class="form-control" name="nationality"  id="nationality" type="text"   data-validation-required-message="Please enter your nationality.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                            <label>Birth date</label>
-                            <input class="form-control" name="birthdate" id="birthdate" type="text"    data-validation-required-message="Please enter your birth date.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Place of birth</label>
-                            <input class="form-control" name="birthplace"  id="birthplace" type="text"   data-validation-required-message="Please enter your place of birth.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                      </div><!-- end of content row -->
-                      <div class="row offset-1"><!-- Content Row -->
-                        <div class="col-md-3  ">
-                            <div class="form-group">
-                            <label>Source of Fund</label>
-                            <input class="form-control" name="fund_source"  id="fund_source" type="text"   data-validation-required-message="Please enter the source of fund.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Bank name</label>
-                            <input class="form-control" name="bank_name"  id="bank_name" type="text"  data-validation-required-message="Please enter bank name.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Bank account number</label>
-                            <input class="form-control" name="bank_account_number"  id="bank_account_number" type="text"  data-validation-required-message="Please enter bank account number.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                      </div><!-- end of content row -->
-                      <div class="row offset-1"><!-- Content Row -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Contact number</label>
-                            <input class="form-control" name="contact_number"  id="contact_number" type="tel"  data-validation-required-message="Please enter your contact number.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Email address</label>
-                            <input class="form-control" name="email_address"  id="email_address" type="text"  data-validation-required-message="Please enter your email address.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                            <label>Website URL</label>
-                            <input class="form-control" name="website"  id="website" type="text"  data-validation-required-message="Please enter your webiste URL.">
-                            <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                      </div><!-- end of content row -->
+                        <div class="row offset-1" id="cis_sole" style="display: none;"><!-- Content Row -->                        
+                          <div class="col-md-8">
+                              <div class="form-group">
+                              <label>DTI Registration Number</label>
+                              <input class="form-control" name="biz_dti_number"  id="biz_dti_number" type="text"   data-validation-required-message="Please enter your occupation.">
+                              </div>
+                          </div>
+                        </div><!-- end of content row -->
+                      </div><!--cis biz-->
+
+
+
+
+
+
+                      
+                      
+                        <!--AuthorizedPerson -->
                       <div class="row offset-1"><!-- Content Row -->
                         <div class="col-md-9">
                           <h3 class="section-heading ">Authorized Person</h3>
@@ -192,27 +331,27 @@
                             <div class="form-group">
                               <label>Full name of trader</label>
                               <input class="form-control" name="auth_1_trader_name"  id="auth_1_trader_name" type="text"  data-validation-required-message="Please enter name of trader.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group">
                               <label>Position</label>
                               <input class="form-control"  name="auth_1_trader_position" id="auth_1_trader_position" type="text"  data-validation-required-message="Please enter position.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group">
                               <label>Nationality</label>
                               <input class="form-control" name="auth_1_trader_nationality"  id="auth_1_trader_nationality" type="text"   data-validation-required-message="Please enter nationality.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group">
                               <label>Contact Number</label>
                               <input class="form-control" name="auth_1_trader_contact_number"  id="auth_1_trader_contact_number" type="text"   data-validation-required-message="Please enter contact.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group" style="display: none;" id="auth_1_trader_sig_div">
                                 <label>Signature ID</label>
                                 <input class="form-control" name="auth_1_trader_signature_id"  id="auth_1_trader_signature_id" type="text"   data-validation-required-message="Please enter Signature ID.">
-                                <p class="help-block text-danger"></p>
+                                
                             </div>
                             <div class="form-group">
                               <button class="btn btn-primary" type="button" id="btnSignatureTrader1"  onclick="signature('trader1')">Signature</button><br/><hr/>
@@ -226,27 +365,27 @@
                             <div class="form-group">
                               <label>Full name of trader</label><br/>
                               <input class="form-control" name="auth_2_trader_name"  id="auth_2_trader_name" type="text"   data-validation-required-message="Please enter name of trader.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group">
                               <label>Position</label><br/>
                               <input class="form-control"  name="auth_2_trader_position" id="auth_2_trader_position" type="text"   data-validation-required-message="Please enter position.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group">
                               <label>Nationality</label>
                               <input class="form-control"  name="auth_2_trader_nationality" id="auth_2_trader_nationality" type="text"   data-validation-required-message="Please enter nationality.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group">
                               <label>Contact Number</label><br/>
                               <input class="form-control" name="auth_2_trader_contact_number" id="auth_2_trader_contact_number" type="text"   data-validation-required-message="Please enter contact.">
-                              <p class="help-block text-danger"></p>
+                              
                             </div>
                             <div class="form-group" style="display: none;" id="auth_2_trader_sig_div">
                                 <label>Signature ID</label>
                                 <input class="form-control" name="auth_2_trader_signature_id"  id="auth_2_trader_signature_id" type="text"   data-validation-required-message="Please enter Signature ID.">
-                                <p class="help-block text-danger"></p>
+                                
                             </div>
                             <div class="form-group">
                               <button class="btn btn-primary" name="first_name" type="button"  id="btnSignatureTrader2"   onclick="signature('trader2')">Signature</button><br/><hr/>                        
@@ -254,6 +393,8 @@
                             </div>
                           </div>
                       </div>  <!-- end of content row -->
+                      
+                      <!--uploading documents-->
                       <div class="row offset-1"><!-- Content Row -->
                         <div class="col-md-9">
                             <h3 class="section-heading ">Documents</h3>
@@ -280,17 +421,43 @@
                             </div>
                         </div>
                       </div>  <!-- end of content row -->
+                      
+                      <!--client's signature-->
+                      <div class="row offset-1"><!-- Content Row -->
+                        <div class="col-md-9">
+                          <br/><br/><label>I confirm that the information contained in this form and if applicable, the attached supplementary are current and accurate</label><br/><br/>
+                        </div>
+                        <div class="col-md-4">
+                          <label>Signatory</label>
+                          <input class="form-control" name="client_signatory"  id="client_signatory" type="text"   data-validation-required-message="Please enter Signatory."><br/>
+                          <button type="button" onclick="signature('client')" id="btnSignatureClient" class="btn btn-primary">Signature</button>
+                        </div>
+                      </div> <!-- end of content row -->
+                      <div class="row offset-1"><!-- Content Row -->
+                        <div class="col-md-4">
+                          <div class="form-group" style="display: none;" id="client_signature_div">
+                            <label>Client's Signature ID</label>
+                            <input class="form-control" name="client_signature_id"  id="client_signature_id" type="text"   data-validation-required-message="Please enter Signature ID."><br/><br/>
+                            <img id='clientsignature' width="300" style="display:none;"  height="200"   />
+                          </div>
+                        </div>
+                      </div><!-- end of content row -->
                       <div class="row offset-1"><!-- Content Row -->   
                         <div class="col-md-9 text-center">
                             <br/><br/>
                             <div id="success"></div>
-                            <button id="submitForm" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit</button>
+                            <button id="submitForm" class="btn btn-success btn-xl text-uppercase" type="submit">Submit</button>
                             <br/><br/>
                         </div>
                       </div><!-- end of content row -->
-                  </form>
+                 </form>
                 </div>
-                <div class="row offset-1"><!-- Content Row -->
+
+
+
+
+
+                {{-- <div class="row offset-1"><!-- Content Row -->
                   <div class="col-md-3" id="signatureDiv" style="display:none;">
                     <p>Signature will be displayed here.</p>
                     <img id="signatureImage" /><br/><br/>
@@ -312,7 +479,7 @@
                     </object>
                     <textarea style="display:none;"   id="txtDisplay"></textarea>
                   </div>
-                </div><!-- end of content row -->
+                </div><!-- end of content row --> --}}
               </div>
             </div>
             <!-- /.container-fluid -->
@@ -351,47 +518,26 @@
 
   var trader1Image = "";
   var trader2Image = "";
+  var clientImage = "";
   var currentSignatory = "";
     function signature(signatory){
-        
+
+      //uploading of image
+
+
+      //wacom signature
       if(signatory=="trader1"){
           $('#auth_1_trader_sig_div').show();
           $('#btnSignatureTrader1').hide();
-      }else{
+      }else if(signatory=="trader2"){
           $('#auth_2_trader_sig_div').show();
           $('#btnSignatureTrader2').hide();
+      }else{
+          $('#client_signature_div').show();
+          $('#btnSignatureClient').hide();
       }
-      window.open('http://forex.test/signature/signatory');
+      // window.open('http://forex.test/signature/signatory');
       
-        // switch(signatory){
-        //     case "trader2":
-        //         if($('#trader_2_name').val()!=""){
-        //             document.getElementById('signatoryName').value = $('#trader_2_name').val();
-        //             currentSignatory = signatory;
-        //             initSignature();
-        //         }else{
-        //             alert("Trader Name is required");
-        //             cancelSignature();
-        //         }
-        //         break;
-
-        //     case "trader1":
-        //         if($('#trader_1_name').val()!=""){
-        //             document.getElementById('signatoryName').value = $('#trader_1_name').val();
-        //             currentSignatory = signatory;
-        //             initSignature(signatory);
-        //         }else{
-        //             alert("Trader Name is required");
-        //             cancelSignature();
-        //         }
-        //         break;
-
-        //     case "client":
-        //     document.getElementById('signatoryName').value = $('#client_name').val();
-        //         break;
-
-        // }
-        
     }
     function initSignature(signatory){
         
@@ -428,10 +574,13 @@
                                 if(currentSignatory=="trader1"){
                                     trader1Image = msg.signature;
                                     document.getElementById('trader1signature').src = msg.signature;
-                                }else{
+                                }else if(currentSignatory=="trader2"){
                                     trader2Image = msg.signature;
                                     document.getElementById('trader2signature').src = msg.signature;
-                                }            
+                                }else{
+                                    clientImage = msg.signature;
+                                    document.getElementById('clientsignature').src = msg.signature;
+                                }
 
                                 cancelSignature();
                             }
@@ -602,24 +751,6 @@
           var sigId1 = document.getElementById('auth_1_trader_signature_id').value;
            
           document.getElementById('trader1signature').src = "http://localhost/forex/storage/app/"+sigId1+".png";
-
-
-          // var url = "http://forex.test/client/getsignature";
-          // var data = {
-          //         signatureId : sigId1,
-          //         _token: '{{csrf_token()}}'
-          // };    
-
-          //     $.ajax({ //Process the form using $.ajax()
-          //         type      : 'POST', //Method type
-          //         url       : url,  
-          //         data      : data, 
-          //         dataType  : 'json',
-          //         success: function(msg) {
-          //   document.getElementById('trader1signature').src = msg.signature;
-          //         }
-          //     });
-          
       });
 
       $("#auth_2_trader_signature_id").on("input", function() {
@@ -642,5 +773,62 @@
                   }
               });
           
-      });
+        });
+
+        $("#client_signature_id").on("input", function() {
+          $('#clientsignature').show();
+          var sigId = document.getElementById('client_signature_id').value;
+         
+
+          var url = "http://forex.test/client/getsignature";
+          var data = {
+                  signatureId : sigId,
+                  _token: '{{csrf_token()}}'
+          };    
+
+              $.ajax({ //Process the form using $.ajax()
+                  type      : 'POST', //Method type
+                  url       : url,  
+                  data      : data, 
+                  dataType  : 'json',
+                  success: function(msg) {
+                    
+                    document.getElementById('clientsignature').src = msg.signature;
+                  }
+              });
+          
+        });
+
+      function changeCISForm(cis_form){
+        switch(cis_form){
+          case "indi":
+            $('#cis_biz').hide();
+            $('#cis_corp_part').hide();
+            $('#cis_sole').hide();
+            $('#cis_indi').show();
+          break;
+
+          case "corp":
+            $('#cis_biz').show();
+            $('#cis_corp_part').show();
+            $('#cis_indi').hide();
+            $('#cis_sole').hide();
+          break;
+
+          case "sole":
+            $('#cis_biz').show();
+            $('#cis_corp_part').hide();
+            $('#cis_indi').hide();
+            $('#cis_sole').show();
+          break;
+
+          case "part":
+            $('#cis_biz').show();
+            $('#cis_corp_part').show();
+            $('#cis_indi').hide();
+            $('#cis_sole').hide();
+          break;
+ 
+        }
+      }
     </script>
